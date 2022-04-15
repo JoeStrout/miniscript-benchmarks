@@ -385,7 +385,7 @@ runUnitTests = function
 	end if
 end function
 
-runBenchmark = function(inputFilePath)
+runBenchmark = function(inputFilePath="../inputData/profile.json")
 	print "Benchmarking: " + inputFilePath
 	t0 = time
 	f = file.open(inputFilePath, "r")
@@ -400,11 +400,13 @@ runBenchmark = function(inputFilePath)
 	t2 = time
 	print "   File read time: " + round(t1 - t0, 3) + " sec"
 	print "   JSON parsing time: " + round(t2 - t1, 3) + " sec"
+	results["json(" + file.name(inputFilePath) + ")"] = round(t2 - t1, 3)
 end function
 
 if locals == globals then
 	runUnitTests
-	runBenchmark "../inputData/icons.json"
+	results = {}
+	//TOO LONG for now: runBenchmark "../inputData/icons.json"
 	runBenchmark "../inputData/index4.json"
 	runBenchmark "../inputData/profile.json"
 end if

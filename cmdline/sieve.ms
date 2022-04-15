@@ -18,15 +18,16 @@ primes = function(limit)
 	return result
 end function
 
-runTest = function
-	// find primes up to a million
-	x = primes(1000000)
+runBenchmark = function(n = 1000000)
+	t0 = time
+	x = primes(n)
+	t1 = time
+	print "sieve(" + n + "): " + round(t1 - t0, 3)
+	results["sieve(" + n + ")"] = round(t1 - t0, 3)
 end function
 
 if locals == globals then
-	t0 = time
-	runTest
-	t1 = time
-	print t1 - t0
+	results = {}
+	runBenchmark
 end if
 

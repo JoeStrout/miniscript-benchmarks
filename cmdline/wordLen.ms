@@ -14,7 +14,7 @@ getWordLengths = function(data, delimiter=" ")
 	return result
 end function
 
-runBenchmark = function(inputFilePath)
+runBenchmark = function(inputFilePath="../inputData/loremipsum.txt")
 	print "Benchmarking: " + inputFilePath
 	t0 = time
 	f = file.open(inputFilePath, "r")
@@ -30,9 +30,11 @@ runBenchmark = function(inputFilePath)
 	print "   File read time: " + round(t1 - t0, 3) + " sec"
 	print "   getWordLengths time: " + round(t2 - t1, 3) + " sec"
 	print "   Result: " + result
+	results.wordLen = round(t2 - t1, 3)
 end function
 
 if locals == globals then
+	results = {}
 	runBenchmark "../inputData/loremipsum.txt"
 end if
 

@@ -14,7 +14,7 @@ list.insertSorted = function(newValue)
 	self.push newValue
 end function
 
-runBenchmark = function(n)
+runBenchmark = function(n=10000)
 	t0 = time
 	myList = []
 	i = 0
@@ -24,10 +24,12 @@ runBenchmark = function(n)
 	end while
 	t1 = time
 	print "Benchmark time for n=" + n + ": " + round(t1-t0, 3) + " sec"
+	results["list.insertSorted(" + n + ")"] = round(t1 - t0, 3)
 end function
 
 
 if locals == globals then
+	results = {}
 	runBenchmark 1000
 	runBenchmark 3000
 	runBenchmark 10000

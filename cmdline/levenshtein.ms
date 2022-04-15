@@ -56,10 +56,16 @@ runTest = function
 	x = ga1.editDistance("banana")
 end function
 
-if locals == globals then
+runBenchmark = function
 	t0 = time
 	runTest
 	t1 = time
-	print t1 - t0
+	print "levenshtein: " + round(t1 - t0, 3)
+	results.levenshtein = round(t1 - t0, 3)
+end function
+
+if locals == globals then
+	results = {}
+	runBenchmark
 end if
 

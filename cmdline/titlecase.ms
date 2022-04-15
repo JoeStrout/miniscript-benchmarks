@@ -1,5 +1,12 @@
 // Capitalize each word in the input file.
 
+string.capitalized = function
+	if self.len < 2 then return self.upper
+	return self[0].upper + self[1:]
+end function
+
+smallWords = ["a", "an", "the", "at", "by", "for", "in", "of", "on", "to", "up", "and", "as", "but", "or", "nor"]
+
 string.titleCase = function(delimiter=" ")
 	words = self.split(delimiter)
 	for i in words.indexes
@@ -10,7 +17,7 @@ string.titleCase = function(delimiter=" ")
 	return words.join(delimiter)
 end function
 
-runBenchmark = function(inputFilePath)
+runBenchmark = function(inputFilePath="../inputData/loremipsum.txt")
 	print "Benchmarking: " + inputFilePath
 	t0 = time
 	f = file.open(inputFilePath, "r")
@@ -25,9 +32,11 @@ runBenchmark = function(inputFilePath)
 	t2 = time
 	print "   File read time: " + round(t1 - t0, 3) + " sec"
 	print "   titleCase time: " + round(t2 - t1, 3) + " sec"
+	results["titleCase(" + file.name(inputFilePath) + ")"] = round(t2 - t1, 3)
 end function
 
 if locals == globals then
+	results = {}
 	runBenchmark "../inputData/loremipsum.txt"
 end if
 
