@@ -15,10 +15,12 @@ Point.update = function
 	gfx.setPixel self.x, self.y, self.color
 end function
 
-runTest = function
+runBenchmark = function
+	clear
+	t0 = time
 	points = []
 	colors = [color.yellow, color.aqua, color.green, color.lime, color.pink, color.white]
-	for iteration in range(1000)		
+	for iteration in range(499)		
 		// create some new points
 		for i in range(20)
 			p = new Point
@@ -37,12 +39,12 @@ runTest = function
 		// note that we do NOT yield here in our loop, because doing so
 		// would ruin the benchmark.
 	end for
+	t1 = time
+	print "fountain: " + round(t1 - t0, 3) + " sec"
+	results.fountain = round(t1 - t0, 3)
 end function
 
 if locals == globals then
-	clear
-	t0 = time
-	runTest
-	t1 = time
-	print t1 - t0
+	results = {}
+	runBenchmark
 end if
