@@ -1,4 +1,4 @@
-// Capitalize each word in the input file.
+// Capitalize each word in the input file (except for certain small words).
 
 string.capitalized = function
 	if self.len < 2 then return self.upper

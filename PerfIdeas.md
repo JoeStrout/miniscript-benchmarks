@@ -29,3 +29,7 @@ If we could somehow know that the user hasn't overridden range(), then we could 
 If we can know that the user never reassigns a function, then we could inline it in some cases, eliminating the function call overhead.  Same for constants.
 
 I'm not sure how we could know that, though, especially in the context of a REPL.  We might need some kind of `final` keyword.  Which I don't love, as it's not MiniScript-y.
+
+## Optimized RunUntilDone
+
+Much real-world code works via RunUntilDone, which has to call a time function quite often to figure out if it should time out — and this time function turns out to be quite expensive.  Come up with some better way to figure out how long it should run, perhaps by computing a running average of cycles/second and then using that to just count cycles.
