@@ -1,4 +1,4 @@
-| Benchmark | Command-Line (C++) 1.5.1 (2022-02-23) | Mini Micro (C#) MiniScript 1.5.1 (2022-10-10) | 
+| Benchmark | Command-Line (C++)<br/>1.5.1 (2022-02-23) | Mini Micro (C#)<br/>1.5.1 (2022-10-10) | 
 | --- | --- | --- |
 | json(profile.json)             | 32.303 | 40.084 |  |
 | levenshtein                    | 7.357 | 18.882 |  |
