@@ -1,15 +1,24 @@
+filenames = file.children
+filenames.sort
+for i in range(filenames.len-1, 0, -1)
+	if filenames[i].len < 3 or filenames[i][-3:] != ".ms" or filenames[i] == "runAll.ms" then
+		filenames.remove i
+	end if
+end for
+
 results = {}
-for name in file.children
-	if name.len < 3 or name[-3:] != ".ms" then continue
+for i in filenames.indexes
+	name = filenames[i]
 	strippedName = name - ".ms"
 	print
-	print name + ":"
+	print "(" + (i+1) + "/" + filenames.len + ") " + name + ":"
 	import strippedName
 	locals[strippedName].runBenchmark
 end for
 
 print
 print
+print "MiniScript " + version.miniscript + ", " + version.hostName + " " + version.host
 
 keys = results.indexes
 keys.sort
