@@ -1,5 +1,4 @@
 results = {}
-file.setdir "cmdline"
 for name in file.children
 	if name.len < 3 or name[-3:] != ".ms" then continue
 	strippedName = name - ".ms"

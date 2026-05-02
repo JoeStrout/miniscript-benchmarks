@@ -73,31 +73,34 @@ textToNumber = function(s)
 	return result
 end function
 
-print "Correctness checks:"
-for n in [-1234, 0, 7, 42, 4325, 1000004, 214837564]
-	words = numberToText(n)
-	backToNum = textToNumber(words)
-    print n + ": " + words + " -> " + backToNum
-    if backToNum != n then
-    	print "ERROR --^"
-    	exit
-    end if
-end for
+runBenchmark = function(n=10000)
+	t0 = time
+	i = 0
+	while i < n
+		s = numberToText(i)
+		i2 = textToNumber(s)
+		if i2 != i then
+			print "Oops!  Failed on " + i + ":"
+			print s + " --> " + i2
+		end if
+		i += 1
+	end while
+	t1 = time
+	print "numberWords(" + n + ") time: " + round(t1 - t0, 3)
+	results["numberWords(" + n + ")"] = round(t1 - t0, 3)
+end function
 
-print
-print "Timed benchmark..."
-t0 = time
-n = 0
-while n < 10000
-	s = numberToText(n)
-	n2 = textToNumber(s)
-	if n2 != n then
-		print "Oops!  Failed on " + n + ":"
-		print s + " --> " + n2
-	end if
-	n += 1
-end while
-t1 = time
-elapsed = t1 - t0
-print "Time for " + n + " round trips: " + elapsed + " sec"
-
+if locals == globals then
+	print "Correctness checks:"
+	for n in [-1234, 0, 7, 42, 4325, 1000004, 214837564]
+		words = numberToText(n)
+		backToNum = textToNumber(words)
+		print n + ": " + words + " -> " + backToNum
+		if backToNum != n then
+			print "ERROR --^"
+			exit
+		end if
+	end for
+	results = {}
+	runBenchmark
+end if
