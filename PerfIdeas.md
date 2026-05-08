@@ -33,3 +33,13 @@ I'm not sure how we could know that, though, especially in the context of a REPL
 ## Optimized RunUntilDone
 
 Much real-world code works via RunUntilDone, which has to call a time function quite often to figure out if it should time out — and this time function turns out to be quite expensive.  Come up with some better way to figure out how long it should run, perhaps by computing a running average of cycles/second and then using that to just count cycles.
+
+## Remove implicit result in non-REPL environemnt
+
+Invoking functions without writing their result into some variable, results their result getting written into an implict result variable, that is onlyy used in REPL. Maybe we should somehow detect if we are compiling code for REPL or not, and don't add implicit result when it's not needed. Or at aleast add an option for parser so embedders can manually disable implicit result when they don't use it
+
+## `self` should not be called
+
+Currently, when using `self`, it's getting evaluated as if it was a function, but in practice, we are ALWAYS getting unevaluated result, even when operating on funcRef, unless we are using `@self`, which is functionally identical but does not emit an extra TAC line for calling it. It would be great if `self` was always treated by compiler as if it was `@self`, thu not emitting any extra TAC code.
+
+Exactly the same issue applies to `globals` and `locals`
